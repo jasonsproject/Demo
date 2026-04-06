@@ -18,6 +18,8 @@ spec:
         app: demo
         version: blue
     spec:
+      imagePullSecrets:
+        - name: aliyun-registry-creds
       containers:
       - name: app
         image: crpi-v1qihtqp9ipem36a.cn-shanghai.personal.cr.aliyuncs.com/imbucket/bucket:blue
@@ -26,3 +28,15 @@ spec:
         env:
         - name: APP_VERSION
           value: "blue"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8090
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8090
+          initialDelaySeconds: 5
+          periodSeconds: 10
