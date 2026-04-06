@@ -1,21 +1,22 @@
 terraform {
   required_providers {
     kubernetes = {
-      source = "hashicorp/kubernetes"
+      source  = "hashicorp/kubernetes"
     }
     helm = {
-      source = "hashicorp/helm"
+      source  = "hashicorp/helm"
     }
   }
 }
 
+# 1. Kubernetes Provider for Helm (Local Docker Desktop)
 provider "kubernetes" {
   config_path    = "~/.kube/config"
   config_context = "docker-desktop"
 }
 
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     config_path    = "~/.kube/config"
     config_context = "docker-desktop"
   }
