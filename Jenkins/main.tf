@@ -112,7 +112,7 @@ resource "kubernetes_role_binding_v1" "jenkins_ci_binding" {
   depends_on = [helm_release.jenkins]   # 确保 ServiceAccount 已创建
 }
 
-resource "kubernetes_secret_v1" "aliyun_pull_secret" {
+resource "kubernetes_secret_v1" "pull_secret_name" {
   metadata {
     name      = "aliyun-pull-secret"
     namespace = kubernetes_namespace_v1.jenkins.metadata[0].name

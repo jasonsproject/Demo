@@ -2,15 +2,10 @@ controller:
   imagePullSecrets:
     - name: ${PULL_SECRET_NAME}
 
-
   serviceAccount:
     create: true
     name: jenkins
   
-  agent:
-  imagePullSecrets:
-    - name: ${PULL_SECRET_NAME}
-
   image:
     registry: "docker.m.daocloud.io"
   runAsUser: 0
