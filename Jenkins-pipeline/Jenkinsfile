@@ -115,7 +115,7 @@ spec:
             steps {
                 container('kubectl') {
                     // Switch service to point to green
-                    sh """kubectl patch service demo-service -p '{"spec":{"selector":{"version":"green"}}}'"""
+                    sh """kubectl patch service demo-service -n jenkins -p '{"spec":{"selector":{"version":"green"}}}'"""
                     echo "Traffic switched to Green environment!"
                 }
             }
