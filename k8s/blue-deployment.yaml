@@ -19,7 +19,7 @@ spec:
         version: blue
     spec:
       imagePullSecrets:
-        - name: aliyun-registry-creds
+        - name: aliyun-registry-secret
       containers:
         - name: app
           image: crpi-v1qihtqp9ipem36a.cn-shanghai.personal.cr.aliyuncs.com/imbucket/bucket
