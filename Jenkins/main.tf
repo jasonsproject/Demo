@@ -63,6 +63,40 @@ resource "helm_release" "jenkins" {
   ]
 }
 
+
+# 5. Define Jenkins role and role binding for Jenkins to access the Kubernetes API (optional, but recommended for security)
+resource "kubernetes_role_v1" "jenkins" {
+  metadata {
+    name      = "jenkins"
+    namespace = kubernetes_namespace_v1.jenkins.metadata[0].name
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["pods", "services", "deployments", "configmaps", "secrets"]
+    verbs      = ["get", "list", "watch", "create", "update", "patch", "delete"]
+  }
+}
+
+resource "kubernetes_role_binding_v1" "jenkins" {
+  metadata {
+    name      = "jenkins"
+    namespace = kubernetes_namespace_v1.jenkins.metadata[0].name
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = kubernetes_role_v1.jenkins.metadata[0].name
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    name      = "default"
+    namespace = kubernetes_namespace_v1.jenkins.metadata[0].name
+  }
+} 
+
 output "jenkins_url" {
   value = "Check your K8s LoadBalancer for external IP"
 }
