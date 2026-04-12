@@ -1,0 +1,13 @@
+replicacount: 2
+
+images: 
+  repository: crpi-v1qihtqp9ipem36a.cn-shanghai.personal.cr.aliyuncs.com/imbucket/bucket
+  tag: latest
+  policy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 8090
+  targetPort: 80
+
+nameSpace: jenkins

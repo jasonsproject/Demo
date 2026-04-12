@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-green-service
+  namespace: {{ .Values.nameSpace }}
+spec:
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+  # 关键点：通过修改 version 标签来切换流量 (blue <-> green)
+  selector:
+    app: {{ .Chart.Name }}
+    version: {{ .green }}
+  type: {{ .Values.service.type }}
